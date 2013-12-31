@@ -272,7 +272,7 @@ function DayEventRenderer() {
       "'" +
       ">" +
       "<div class='fc-event-inner'>";
-    console.log(event.pre_icon);
+    // console.log(event.pre_icon);
     if (event.pre_icon) { // add by nick-ma on 2013/12/27
       html += event.pre_icon;
     }
