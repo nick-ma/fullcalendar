@@ -41,23 +41,51 @@ function Header(calendar, options) {
                 if (i > 0) {
                     e.append("<span class='fc-header-space'/>");
                 }
-                if (bns.split('.')[0] == 'custom_button') { //add by nick-ma on 2013-12-31
-                    var btn = bns.split('.')[1];
-                    var btn_option = smartProperty(options.custom_button, btn) || null;
-                    if (btn_option) {
-                        var icon = btn_option['icon'],
-                            text = btn_option['text'],
-                            classes = btn_option['classes'];
-                        var button = '<button class="' + classes + '">';
-                        if (icon) {
-                            button += '<i class="' + icon + '" />';
+                if (bns.split(',')
+                    .length > 1) {
+                    var button_group = '<div class="btn-group">';
+                    $.each(bns.split(','), function (j, btnt) {
+                        if (btnt.split('.')[0] == 'custom_button') { //add by nick-ma on 2013-12-31
+                            var btn = btnt.split('.')[1];
+                            var btn_option = smartProperty(options.custom_button, btn) || null;
+                            if (btn_option) {
+                                var icon = btn_option['icon'],
+                                    text = btn_option['text'],
+                                    classes = btn_option['classes'];
+                                var button = '<button type="button" class="' + classes + '">';
+                                if (icon) {
+                                    button += '<i class="' + icon + '" />';
+                                }
+                                button += text;
+                                // button += '';
+                                button += '</button>';
+                                button_group += button;
+                            }
+                            return;
                         }
-                        button += text;
-                        // button += '';
-                        button += '</button>';
-                        e.append(button);
-                    }
+                    })
+                    button_group += '</div>';
+                    e.append(button_group);
                     return;
+                } else {
+                    if (bns.split('.')[0] == 'custom_button') { //add by nick-ma on 2013-12-31
+                        var btn = bns.split('.')[1];
+                        var btn_option = smartProperty(options.custom_button, btn) || null;
+                        if (btn_option) {
+                            var icon = btn_option['icon'],
+                                text = btn_option['text'],
+                                classes = btn_option['classes'];
+                            var button = '<button type="button" class="' + classes + '">';
+                            if (icon) {
+                                button += '<i class="' + icon + '" />';
+                            }
+                            button += text;
+                            // button += '';
+                            button += '</button>';
+                            e.append(button);
+                        }
+                        return;
+                    }
                 }
                 var prevButton;
                 $.each(this.split(','), function (j, buttonName) {
